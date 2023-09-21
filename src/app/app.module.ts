@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
+import { CartService } from './services/cart.service';
+
 import {MatSidenavModule} from '@angular/material/sidenav';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatMenuModule } from '@angular/material/menu';
@@ -22,6 +24,7 @@ import { HomeComponent } from './pages/home/home/home.component';
 import { ProductsHeaderComponent } from './pages/components/products-header/products-header.component';
 import { FiltersComponent } from './pages/components/filters/filters.component';
 import { ProductBoxComponent } from './pages/home/components/product-box/product-box.component';
+import { CartComponent } from './pages/cart/cart.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +33,8 @@ import { ProductBoxComponent } from './pages/home/components/product-box/product
     HomeComponent,
     ProductsHeaderComponent,
     FiltersComponent,
-    ProductBoxComponent
+    ProductBoxComponent,
+    CartComponent
   ],
   imports: [
     BrowserModule,
@@ -49,7 +53,7 @@ import { ProductBoxComponent } from './pages/home/components/product-box/product
     MatSnackBarModule,
     MatListModule,
   ],
-  providers: [],
+  providers: [CartService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
