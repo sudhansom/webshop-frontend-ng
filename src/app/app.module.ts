@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { CartService } from './services/cart.service';
+import { StoreService } from './services/store.service';
+import { HttpClientModule } from '@angular/common/http';
 
 import {MatSidenavModule} from '@angular/material/sidenav';
 import { MatGridListModule } from '@angular/material/grid-list';
@@ -52,8 +54,9 @@ import { CartComponent } from './pages/cart/cart.component';
     MatBadgeModule,
     MatSnackBarModule,
     MatListModule,
+    HttpClientModule,
   ],
-  providers: [CartService],
+  providers: [CartService, StoreService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
