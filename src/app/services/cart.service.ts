@@ -65,7 +65,7 @@ export class CartService {
           this.cartQuantity -= 1;
         }
         return item;
-      })
+      }).filter(item => item.quantity !== 0);
       if(this.cartQuantity < 1){
         this.cart.next({items: []});
       }else{
