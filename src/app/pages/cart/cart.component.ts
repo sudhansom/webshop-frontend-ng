@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 import { Cart , CartItem} from 'src/app/models/cart.model';
 import { CartService } from 'src/app/services/cart.service';
+import { loadStripe } from '@stripe/stripe-js';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-cart',
@@ -29,7 +32,7 @@ export class CartComponent implements OnInit {
   dataSource: Array<CartItem> = [];
   displayColumns: Array<string> = ['product', 'name', 'price', 'quantity', 'total', 'action'];
 
-  constructor(private cartService: CartService) { }
+  constructor(private cartService: CartService, private _http: HttpClient) { }
 
   ngOnInit(): void {
     this.cartService.cart.subscribe(data => {
@@ -58,6 +61,17 @@ export class CartComponent implements OnInit {
 
   decreaseOne(id: number):void {
     this.cartService.decreaseOne(id);
+  }
+
+  onCheckout(): void {
+    this._http.post('https://stripe-webshop-production.up.railway.app/stripe/checkout', {
+      items: this.cart.items
+    }).subscribe(async (res: any) => {
+      let stripe = await loadStripe(environment.stripePublicKey);
+      stripe?.redirectToCheckout({
+        sessionId: res.id
+      })
+    })
   }
 
 }
